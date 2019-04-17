@@ -1,0 +1,55 @@
+/* roboto-300 - latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-300.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Light'), local('Roboto-Light'),
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-300.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-300.woff') format('woff'), /* Modern Browsers */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-300.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-300.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/* roboto-regular - latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-regular.eot'); /* IE9 Compat Modes */
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-regular.woff') format('woff'), /* Modern Browsers */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/* roboto-500 - latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-500.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Medium'), local('Roboto-Medium'),
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-500.woff') format('woff'), /* Modern Browsers */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-500.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-500.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/* roboto-700 - latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-700.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-700.woff') format('woff'), /* Modern Browsers */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/roboto-v16-latin_cyrillic_greek_greek-ext_latin-ext_cyrillic-ext_vietnamese-700.svg#Roboto') format('svg'); /* Legacy iOS */
+}

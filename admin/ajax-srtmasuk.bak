@@ -1,0 +1,96 @@
+<?php
+// memanggil file config.php
+$dbhost = 'localhost';
+$dbuser = 'root';
+$dbpass = '';
+$dbname = 'dbsurat';
+
+// koneksi ke database
+$database = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+
+if ($database->connect_error) {
+    die('Oops!! database Not Connect : ' . $database->connect_error);
+}
+
+// Alternative SQL join in Datatables
+$id_table = 'no_urut';
+
+$columns = array(
+             'no_urut',
+             'nm_instansi',
+             'tgl_diterima',
+             'perihal',
+             'nm_simpan'
+           );
+
+// gunakan join disini
+$from = 'tsuratmasuk T INNER JOIN minstansi I ON T.kd_instansi = I.kd_instansi INNER JOIN mpnympn P ON T.kd_simpan = P.kd_simpan';
+
+$id_table = $id_table != '' ? $id_table . ',' : '';
+// custom SQL
+$sql = "SELECT {$id_table} ".implode(',', $columns)." FROM {$from}";
+
+// search
+if (isset($_GET['search']['value']) && $_GET['search']['value'] != '') {
+    $search = $_GET['search']['value'];
+    $where  = '';
+    // create parameter pencarian kesemua kolom yang tertulis
+    // di $columns
+    for ($i=0; $i < count($columns); $i++) {
+        $where .= $columns[$i] . ' LIKE "%'.$search.'%"';
+
+        // agar tidak menambahkan 'OR' diakhir Looping
+        if ($i < count($columns)-1) {
+            $where .= ' OR ';
+        }
+    }
+
+    $sql .= ' WHERE ' . $where;
+}
+
+//SORT Kolom
+$sortColumn = isset($_GET['order'][0]['column']) ? $_GET['order'][0]['column'] : 0;
+$sortDir    = isset($_GET['order'][0]['dir']) ? $_GET['order'][0]['dir'] : 'asc';
+
+$sortColumn = $columns[$sortColumn];
+
+$sql .= " ORDER BY {$sortColumn} {$sortDir}";
+
+// var_dump($sql);
+$count = $database->query($sql);
+// hitung semua data
+$totaldata = $count->num_rows;
+
+$count->close();
+
+// memberi Limit
+$start  = isset($_GET['start']) ? $_GET['start'] : 0;
+$length = isset($_GET['length']) ? $_GET['length'] : 10;
+
+
+$sql .= " LIMIT {$start}, {$length}";
+
+$data  = $database->query($sql);
+
+// create json format
+$datatable['draw']            = isset($_GET['draw']) ? $_GET['draw'] : 1;
+$datatable['recordsTotal']    = $totaldata;
+$datatable['recordsFiltered'] = $totaldata;
+$datatable['data']            = array();
+
+while ($row = $data->fetch_array()) {
+
+    $fields = array();
+    for ($i=0; $i < count($columns); $i++) {
+        # code...
+        $fields[] = $row["{$columns[$i]}"];
+    }
+        $fields[] = '<a class="btn btn-sm btn-primary" href="index.php?id='.$row['no_urut'].'" title="Edit" ><i       class="glyphicon glyphicon-pencil"></i> Edit</a>
+              <a class="btn btn-sm btn-danger" href="javascript:void()" title="Hapus" ><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+    
+
+    $datatable['data'][] = $fields;
+}
+
+$data->close();
+echo json_encode($datatable);

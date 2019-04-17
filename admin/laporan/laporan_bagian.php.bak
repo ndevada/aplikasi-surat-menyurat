@@ -1,0 +1,66 @@
+<?php
+error_reporting(E_ALL ^ E_DEPRECATED);
+include "../../config.php";
+require('../../assets/fpdf17/fpdf.php');
+//Create a new PDF file
+class PDF extends FPDF {
+public function Footer() {
+        $this->SetY(-15);
+        $this->SetFont('Arial', 'I', 8);
+        // Setting Date ( I have set the date here )
+        $tDate=date('D, d F, Y');
+        $hari = array("Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu");
+		$bulan = array("","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+		$this->Cell(190,0.6,'','0','1','C', true);
+		$this->Ln();
+        $this->Cell(50, 10, 'Dicetak pada : '.$hari[date("w")].", ".date("j")." ".$bulan[date("n")]." ".date("Y")." ".gmdate("h:i:s a", time()+60*60*8), 0, false, 'L', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0,10,'Halaman '.$this->PageNo(),0,0,'R');
+	}
+}
+$pdf = new PDF('P','mm',array(210,297)); //L For Landscape / P For Portrait
+$pdf->AddFont('MTCORSVA','','MTCORSVA.php');
+$pdf->AddPage();
+
+//Menambahkan Gambar
+$pdf->Cell(190,0.6,'','0','1','C', true);
+$pdf->Ln(3);
+$pdf->Image('../logo.png',10,11.5,-2500);
+//$pdf->Image('../../images/logo.png',184.8,11.5,-800);
+$pdf->SetFont('MTCORSVA','',16);
+$pdf->Cell(0,5,'Diskominfotik Kota Banjarmasin','0','1','C', false);
+$pdf->SetFont('MTCORSVA','',8);
+$pdf->Cell(0,5,'Alamat : Jalan R. E. Martadinata No. 1 Kode Pos 7011 Gedung Blok B Lt. Dasar, Kota Banjarmasin','0','1','C', false);
+$pdf->Cell(0,2,',Kalimantan Selatan 70714','0','1','C', false);
+$pdf->Ln(3);
+$pdf->Cell(190,0.6,'','0','1','C', true);
+$pdf->Ln(5);
+
+$pdf->SetFont('Courier','B',9);
+$pdf->Cell(50,5,'Laporan Data Bagian','0','1','L',false);
+$pdf->Ln(3);
+
+$pdf->SetFont('Courier','B',10);
+$pdf->Cell(8,6,'No.',1,0,'C');
+$pdf->Cell(40,6,'Kode Bagian',1,0,'C');
+$pdf->Cell(142,6,'Nama Bagian',1,0,'C');
+//$pdf->Cell(35,6,'Merek',1,0,'C');
+//$pdf->Cell(50,6,'Jenis',1,0,'C');
+//$pdf->Cell(15,6,'Kategori',1,0,'C');
+//$pdf->Cell(20,6,'Harga',1,0,'C');
+$pdf->Ln(2);
+$no = 0;
+$sql = mysqli_query($koneksi,"SELECT * FROM m_bagian order by kd_bagian ASC");
+while($data = mysqli_fetch_array($sql)){
+	$no++;
+	$pdf->Ln(4);
+	$pdf->SetFont('Courier','',8);
+	$pdf->Cell(8,4,$no.".",1,0,'C');
+	$pdf->Cell(40,4,$data['kd_bagian'],1,0,'C');
+	$pdf->MultiCell(142,6,$data['nm_bagian'],1,'L','false');
+	//$pdf->Cell(35,4,$data['merk'],1,0,'L');
+	//$pdf->Cell(50,4,$data['jenis'],1,0,'L');
+	//$pdf->Cell(15,4,$data['ktgr'],1,0,'L');
+	//$pdf->Cell(20,4,$data['harga'],1,0,'L');
+}
+$pdf->Output('laporan_data_bagian.pdf', 'D');
+?>

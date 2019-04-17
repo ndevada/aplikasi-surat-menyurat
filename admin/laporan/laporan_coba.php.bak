@@ -1,0 +1,107 @@
+<?php
+include "../../config.php";
+require('../../assets/fpdf17/fpdf.php');
+
+$result=mysqli_query($koneksi,"SELECT * FROM tsuratmasuk T INNER JOIN minstansi I ON T.kd_instansi = I.kd_instansi INNER JOIN mpnympn P ON T.kd_simpan = P.kd_simpan  ORDER BY no_urut ASC") or die(mysqli_error());
+
+//Inisiasi untuk membuat header kolom
+$column_nmr = "";
+$column_no_urut = "";
+$column_nmr_surat = "";
+$column_tgl_surat = "";
+$column_nm_instansi = "";
+$column_perihal = "";
+$column_nm_simpan = "";
+
+
+//For each row, add the field to the corresponding column
+while($row = mysqli_fetch_assoc($result))
+{
+	$no_urut = $row["no_urut"];
+    $nmr_surat = $row["nmr_surat"];
+    $tgl_surat = $row["tgl_surat"];
+    $nm_instansi = $row["nm_instansi"];
+    $perihal = $row["perihal"];
+	$nm_simpan = $row["nm_simpan"];
+ 
+    
+
+    $column_no_urut = $column_no_urut.$no_urut."\n";
+    $column_nmr_surat = $column_nmr_surat.$nmr_surat."\n";
+    $column_tgl_surat = $column_tgl_surat.$tgl_surat."\n";
+    $column_nm_instansi = $column_nm_instansi.$nm_instansi."\n";
+    $column_perihal = $column_perihal.$perihal."\n";
+    $column_nm_simpan = $column_nm_simpan.$nm_simpan."\n";
+    
+
+//Create a new PDF file
+$pdf = new FPDF('P','mm',array(210,297)); //L For Landscape / P For Portrait
+$pdf->AddPage();
+
+//Menambahkan Gambar
+//$pdf->Image('../foto/logo.png',10,10,-175);
+
+$pdf->SetFont('Arial','B',13);
+$pdf->Cell(80);
+$pdf->Cell(30,10,'DATA KARYAWAN',0,0,'C');
+$pdf->Ln();
+$pdf->Cell(80);
+$pdf->Cell(30,10,'PT. NiqoWeb Cikarang | www.niqoweb.com',0,0,'C');
+$pdf->Ln();
+
+}
+//Fields Name position
+$Y_Fields_Name_position = 30;
+
+//First create each Field Name
+//Gray color filling each Field Name box
+$pdf->SetFillColor(110,180,230);
+//Bold Font for Field Name
+$pdf->SetFont('Arial','B',10);
+$pdf->SetY($Y_Fields_Name_position);
+$pdf->SetX(5);
+$pdf->Cell(25,8,'No. Urut',1,0,'C',1);
+$pdf->SetX(30);
+$pdf->Cell(40,8,'Nomor Surat',1,0,'C',1);
+$pdf->SetX(70);
+$pdf->Cell(25,8,'Tanggal Surat',1,0,'C',1);
+$pdf->SetX(95);
+$pdf->Cell(25,8,'Asal Surat',1,0,'C',1);
+$pdf->SetX(120);
+$pdf->Cell(50,8,'Perihal',1,0,'C',1);
+$pdf->SetX(170);
+$pdf->Cell(35,8,'Tempat Penyimpanan',1,0,'C',1);
+$pdf->Ln();
+
+//Table position, under Fields Name
+$Y_Table_Position = 38;
+
+//Now show the columns
+$pdf->SetFont('Arial','',10);
+
+$pdf->SetY($Y_Table_Position);
+$pdf->SetX(5);
+$pdf->MultiCell(25,6,$no_urut,1,'J');
+
+$pdf->SetY($Y_Table_Position);
+$pdf->SetX(30);
+$pdf->MultiCell(40,6,$nmr_surat,1,'J');
+
+$pdf->SetY($Y_Table_Position);
+$pdf->SetX(70);
+$pdf->MultiCell(25,6,$tgl_surat,1,'J');
+
+$pdf->SetY($Y_Table_Position);
+$pdf->SetX(95);
+$pdf->MultiCell(25,6,$nm_instansi,1,'J');
+
+$pdf->SetY($Y_Table_Position);
+$pdf->SetX(120);
+$pdf->MultiCell(50,6,$perihal,1,'J');
+
+$pdf->SetY($Y_Table_Position);
+$pdf->SetX(170);
+$pdf->MultiCell(35,6,$nm_simpan,1,'J');
+
+$pdf->Output();
+?>
